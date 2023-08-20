@@ -50,7 +50,8 @@ function App() {
     const dispatchPayload = {
       "severity": formData.severity,
       "medical_condition": formData.medicalCondition,
-      "location": formData.location  
+      "location": formData.location,
+      "nhs_number": formData.nhsNumber
     };
 
     try {

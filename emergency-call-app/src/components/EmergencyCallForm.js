@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// EmergencyCallForm.js
+
+import React, { useState, useEffect } from 'react';
 import './EmergencyCallForm.css'; // Import the CSS file
 
 function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions, patientData }) {
@@ -8,8 +10,18 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions,
   const [location, setLocation] = useState('');
   const [medicalCondition, setMedicalCondition] = useState('');
   const [severity, setSeverity] = useState('');
+  const [matchFound, setMatchFound] = useState(false); // State variable for match found
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // Update the name fields when patientData changes
+    if (patientData.length > 0) {
+      setPatientGivenName(patientData[0].first_name);
+      setPatientSurname(patientData[0].last_name);
+      setMatchFound(true);
+    }
+  }, [patientData]); // Listen for changes in patientData
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     onSubmit({
       patientGivenName,
@@ -19,10 +31,6 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions,
       medicalCondition,
       severity,
     });
-    if (patientData.length > 0) {
-      setPatientGivenName(patientData[0].first_name);
-      setPatientSurname(patientData[0].last_name);
-    }
   };
 
   return (
@@ -36,6 +44,7 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions,
             value={patientGivenName}
             readOnly
           />
+          {matchFound && <span className="green-tick">✓</span>} {/* Conditional rendering */}
         </div>
 
         <div className="form-group">
@@ -45,6 +54,7 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions,
             value={patientSurname}
             readOnly
           />
+          {matchFound && <span className="green-tick">✓</span>} {/* Conditional rendering */}
         </div>
 
         <div className="form-group">

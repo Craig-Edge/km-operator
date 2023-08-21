@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './EmergencyCallForm.css'; // Import the CSS file
 
-function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions }) {
+function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions, patientData }) {
   const [patientGivenName, setPatientGivenName] = useState('');
   const [patientSurname, setPatientSurname] = useState('');
   const [nhsNumber, setNhsNumber] = useState('');
@@ -19,6 +19,10 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions 
       medicalCondition,
       severity,
     });
+    if (patientData.length > 0) {
+      setPatientGivenName(patientData[0].first_name);
+      setPatientSurname(patientData[0].last_name);
+    }
   };
 
   return (
@@ -30,7 +34,7 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions 
           <input
             type="text"
             value={patientGivenName}
-            onChange={(e) => setPatientGivenName(e.target.value)}
+            readOnly
           />
         </div>
 
@@ -39,7 +43,7 @@ function EmergencyCallForm({ onSubmit, medicalConditionOptions, severityOptions 
           <input
             type="text"
             value={patientSurname}
-            onChange={(e) => setPatientSurname(e.target.value)}
+            readOnly
           />
         </div>
 

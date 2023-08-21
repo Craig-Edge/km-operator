@@ -74,10 +74,15 @@ function App() {
   return (
     <div className="App">
       <h1>Emergency Call Operator</h1>
-      <EmergencyCallForm onSubmit={handleFormSubmit} medicalConditionOptions={medicalConditionOptions}  severityOptions={severityOptions}/>
-      <p>{searchResult}</p>
-      <div>
-        <h2>Response Data:</h2>
+      <EmergencyCallForm
+        onSubmit={handleFormSubmit}
+        medicalConditionOptions={medicalConditionOptions}
+        severityOptions={severityOptions}
+        patientData={responseData}
+      />
+      <p className="search-result">{searchResult}</p>
+      <div className="patient-details">
+        <h2>Patient Details:</h2>
         <ul>
           {responseData.map((patient) => (
             <li key={patient.id}>
@@ -85,12 +90,6 @@ function App() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <h2>Dispatch Response Data:</h2>
-        <pre>
-          {JSON.stringify(dispatchResponseData, null, 2)}
-        </pre>
       </div>
     </div>
   );

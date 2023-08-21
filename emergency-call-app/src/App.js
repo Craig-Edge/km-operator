@@ -87,6 +87,8 @@ function App() {
           {responseData.map((patient) => (
             <li key={patient.id}>
               {patient.first_name} {patient.last_name} - NHS Number: {patient.nhs_number}
+              <br/>
+              <h3><strong>Chosen Hospital : {dispatchResponseData.chosen_hospital}</strong></h3>
             </li>
           ))}
         </ul>
